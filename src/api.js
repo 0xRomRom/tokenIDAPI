@@ -5,8 +5,8 @@ const cors = require("cors");
 const { Alchemy, Network } = require("alchemy-sdk");
 
 const config = {
-  apiKey: "22AL6QQADYRRsmC7gB8JbNNXMw-uJJGG",
-  network: Network.ETH_MAINNET,
+  apiKey: "nI4gnkiLtepVjnFU_phTTeaJizPXaLQN",
+  network: Network.ETH_SEPOLIA,
 };
 const alchemy = new Alchemy(config);
 
@@ -23,12 +23,14 @@ router.post("/", async (req, res) => {
 
   let tokenIDs = [];
   const nfts = await alchemy.nft.getNftsForOwner(wallet);
-  console.log(nfts);
-  const result = nfts.ownedNfts;
+  // console.log(nfts);
+  const result = Array.from(nfts.ownedNfts);
 
   result.map((item) => {
+    console.log(item.contract.address);
     if (
-      item.contract.address === "0x924e5435837325fdD5048004c4f14BF822980C7c"
+      item.contract.address.toLowerCase() ===
+      "0x3988c4412888FA14C3F6552562fBD9b49377A130".toLowerCase()
     ) {
       tokenIDs.push(item.tokenId);
     }
