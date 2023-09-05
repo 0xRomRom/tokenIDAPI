@@ -20,6 +20,7 @@ app.use(cors());
 
 router.post("/", async (req, res) => {
   const wallet = req.body.address;
+  const contract = req.body.contract;
 
   let tokenIDs = [];
   const nfts = await alchemy.nft.getNftsForOwner(wallet);
@@ -28,10 +29,7 @@ router.post("/", async (req, res) => {
 
   result.map((item) => {
     console.log(item.contract.address);
-    if (
-      item.contract.address.toLowerCase() ===
-      "0x3988c4412888FA14C3F6552562fBD9b49377A130".toLowerCase()
-    ) {
+    if (item.contract.address.toLowerCase() === contract.toLowerCase()) {
       tokenIDs.push(item.tokenId);
     }
   });
