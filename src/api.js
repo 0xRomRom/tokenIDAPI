@@ -29,6 +29,7 @@ router.post("/", async (req, res) => {
 
   result.map((item) => {
     console.log(item.contract.address);
+    console.log(contract);
     if (item.contract.address.toLowerCase() === contract.toLowerCase()) {
       tokenIDs.push(item.tokenId);
     }
